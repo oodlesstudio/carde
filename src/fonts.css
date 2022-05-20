@@ -1,0 +1,80 @@
+@font-face {
+  font-family: 'icomoon';
+  src:  url('fonts/icomoon.eot?aut7tx');
+  src:  url('fonts/icomoon.eot?aut7tx#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?aut7tx') format('truetype'),
+    url('fonts/icomoon.woff?aut7tx') format('woff'),
+    url('fonts/icomoon.svg?aut7tx#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-Hamburger-Menu:before {
+  content: "\e90c";
+    color: var(--color-black);
+      font-size: 24px;
+}
+.icon-Manual-Insert:before {
+  content: "\e90b";
+  color: var(--color-primary-default);
+}
+.icon-Configuration:before {
+  content: "\e900";
+  color: var(--color-primary-default);
+}
+.icon-Dashboard:before {
+  content: "\e901";
+  color: var(--color-primary-default);
+}
+.icon-Insta-Card:before {
+  content: "\e902";
+  color: var(--color-primary-default);
+}
+.icon-Inventory:before {
+  content: "\e903";
+  color: var(--color-primary-default);
+}
+.icon-notification:before {
+  content: "\e904";
+  color: var(--color-primary-default);
+}
+.icon-Operartion-Card:before {
+  content: "\e905";
+  color: var(--color-primary-default);
+}
+.icon-profile:before {
+  content: "\e906";
+  color: var(--color-primary-default);
+}
+.icon-Reports:before {
+  content: "\e907";
+  color: var(--color-primary-default);
+}
+.icon-search-header:before {
+  content: "\e908";
+  color: var(--color-primary-default);
+}
+.icon-settings:before {
+  content: "\e909";
+  color: var(--color-primary-default);
+}
+.icon-vertical-line:before {
+  content: "\e90a";
+  color: var(--color-primary-default);
+}
