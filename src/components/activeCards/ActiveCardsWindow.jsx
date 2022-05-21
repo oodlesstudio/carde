@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Select from "react-select";
 import { Modal, Tooltip, OverlayTrigger } from "react-bootstrap";
 import { Link } from "react-router-dom";
@@ -61,6 +61,61 @@ const ActiveCardsWindow = () => {
   //   Date Calendar
   const [startDate, setStartDate] = useState(new Date());
 
+  // -------------------- CheckBox Logic ---------------------------------
+
+  const [checkedAll, setCheckedAll] = useState(false);
+  const [checked, setChecked] = useState({
+    nr1: false,
+    nr2: false,
+    nr3: false,
+    nr4: false,
+    nr5: false,
+    nr6: false,
+    nr7: false,
+    nr8: false,
+    nr9: false,
+    nr10: false,
+  });
+
+  /* -------------------- TOGGLES checK STATE BASED ON inputName -------------------- */
+
+  const toggleCheck = (inputName) => {
+    setChecked((prevState) => {
+      const newState = { ...prevState };
+      newState[inputName] = !prevState[inputName];
+      return newState;
+    });
+  };
+
+  /* -------------------- CHECKS OR UNCHECKS ALL FROM SELECT ALL CLICK -------------------- */
+
+  const selectAll = (value) => {
+    setCheckedAll(value);
+    setChecked((prevState) => {
+      const newState = { ...prevState };
+      for (const inputName in newState) {
+        newState[inputName] = value;
+      }
+      return newState;
+    });
+  };
+
+  /* -------------------- EFFECT TO CONTROL CHECKED_ALL STATE -------------------- */
+
+  useEffect(() => {
+    let allChecked = true;
+    for (const inputName in checked) {
+      if (checked[inputName] === false) {
+        allChecked = false;
+      }
+    }
+    if (allChecked) {
+      setCheckedAll(true);
+    } else {
+      setCheckedAll(false);
+    }
+  }, [checked]);
+
   return (
     <div className="configLeft unmatchedContainer">
       {/* Breadcrumb Box */}
@@ -121,6 +176,7 @@ const ActiveCardsWindow = () => {
       </div>
 
       {/* Config Left Top */}
+
       <div className="configLeftTop">
         <div class="accordion" id="unmatchedFilters">
           <div class="accordion-item">
@@ -264,7 +320,7 @@ const ActiveCardsWindow = () => {
                         setBinScheme();
                         changeBinScheme();
                       }}
-                      options={options}
+                      options={options2}
                       id="binScheme"
                       classNamePrefix="reactSelectBox"
                       placeholder="Select"
@@ -294,45 +350,53 @@ const ActiveCardsWindow = () => {
       {/* Bottom Content */}
       <div className="configLeftBottom">
         <div className="tableBorderBox">
-          <div className="d-flex justify-content-between align-items-center mt-3 mb-2">
-            <div className="clientNameSelect configFormatEntities">
-              <Select
-                defaultValue={selectedOption}
-                onChange={setSelectedOption}
-                options={options}
-                isSearchable={false}
-                classNamePrefix="reactSelectBox"
-                placeholder="10 Entries"
-              />
-            </div>
-            <div className="d-flex">
-              <div className="form-group has-search">
-                <span class="icon-Search form-control-feedback"></span>
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Search"
+          <div className="tableHeaderTab mt-3 mb-2">
+            <div className="d-flex w-100">
+              {/* Table Entry DropDown */}
+              <div className="clientNameSelect configFormatEntities">
+                <Select
+                  defaultValue={selectedOption}
+                  onChange={setSelectedOption}
+                  options={options}
+                  isSearchable={false}
+                  classNamePrefix="reactSelectBox"
+                  placeholder="10 Entries"
                 />
               </div>
+              {/* Search Pdf and Xls */}
+              <div className="d-flex ms-auto">
+                <div className="form-group has-search has-search2">
+                  <span class="icon-Search form-control-feedback"></span>
+                  <input
+                    type="text"
+                    className="form-control"
+                    placeholder="Search"
+                  />
+                </div>
 
-              <OverlayTrigger
-                placement="top"
-                delay={{ show: 250, hide: 400 }}
-                overlay={renderTooltip}
-              >
-                <button type="button" className="iconButtonBox">
-                  <img src={Pdf} alt="Pdf" />
-                </button>
-              </OverlayTrigger>
-              <OverlayTrigger
-                placement="top"
-                delay={{ show: 250, hide: 400 }}
-                overlay={renderTooltipExcel}
-              >
-                <button type="button" className="iconButtonBox">
-                  <img src={Excel} alt="Excel" />
-                </button>
-              </OverlayTrigger>
+                <OverlayTrigger
+                  placement="top"
+                  delay={{ show: 250, hide: 400 }}
+                  overlay={renderTooltip}
+                >
+                  <button type="button" className="iconButtonBox">
+                    <img src={Pdf} alt="Pdf" />
+                  </button>
+                </OverlayTrigger>
+                <OverlayTrigger
+                  placement="top"
+                  delay={{ show: 250, hide: 400 }}
+                  overlay={renderTooltipExcel}
+                >
+                  <button type="button" className="iconButtonBox">
+                    <img src={Excel} alt="Excel" />
+                  </button>
+                </OverlayTrigger>
+              </div>
+            </div>
+
+            <div className="d-flex ">
+              {/* Active Buttons */}
               <div className="activeCardBtns">
                 <button className="activeCardBtn">Repin</button>
                 <button className="activeCardBtn">Mark Hot</button>
@@ -347,31 +411,37 @@ const ActiveCardsWindow = () => {
               <thead>
                 <tr>
                   <th scope="col">
-                    Channel
+                    <div className="form-check d-flex align-items-center">
+                      <input
+                        className="form-check-input"
+                        type="checkbox"
+                        value=""
+                        id="flexCheckDefault"
+                        onChange={(event) => selectAll(event.target.checked)}
+                        checked={checkedAll}
+                      />
+                    </div>
+                  </th>
+                  <th scope="col">
+                    Branch Name
                     <Link to="/">
                       <span class="icon-Table-Sorting"></span>
                     </Link>
                   </th>
                   <th scope="col">
-                    Mode
+                    Account Type
                     <Link to="/">
                       <span class="icon-Table-Sorting"></span>
                     </Link>
                   </th>
                   <th scope="col">
-                    Terminal ID
+                    Acount No
                     <Link to="/">
                       <span class="icon-Table-Sorting"></span>
                     </Link>
                   </th>
                   <th scope="col">
-                    Date & Time
-                    <Link to="/">
-                      <span class="icon-Table-Sorting"></span>
-                    </Link>
-                  </th>
-                  <th scope="col">
-                    Reference No.
+                    Customer Name
                     <Link to="/">
                       <span class="icon-Table-Sorting"></span>
                     </Link>
@@ -383,49 +453,67 @@ const ActiveCardsWindow = () => {
                     </Link>
                   </th>
                   <th scope="col">
-                    Account No.
+                    Card Expiry
                     <Link to="/">
                       <span class="icon-Table-Sorting"></span>
                     </Link>
                   </th>
                   <th scope="col">
-                    Txn Amount
+                    Card Activated On
                     <Link to="/">
                       <span class="icon-Table-Sorting"></span>
                     </Link>
                   </th>
                   <th scope="col">
-                    EJ Status
+                    Last Repin Date
                     <Link to="/">
                       <span class="icon-Table-Sorting"></span>
                     </Link>
                   </th>
                   <th scope="col">
-                    Switch Status
+                    Contact No
                     <Link to="/">
                       <span class="icon-Table-Sorting"></span>
                     </Link>
                   </th>
                   <th scope="col">
-                    Network Status
+                    Product Name
                     <Link to="/">
                       <span class="icon-Table-Sorting"></span>
                     </Link>
                   </th>
                   <th scope="col">
-                    GL Status
+                    Card Scheme
                     <Link to="/">
                       <span class="icon-Table-Sorting"></span>
                     </Link>
                   </th>
                   <th scope="col">
-                    Txns Type
+                    BIN No
                     <Link to="/">
                       <span class="icon-Table-Sorting"></span>
                     </Link>
                   </th>
                   <th scope="col">
-                    Remark
+                    Card Activated By
+                    <Link to="/">
+                      <span class="icon-Table-Sorting"></span>
+                    </Link>
+                  </th>
+                  <th scope="col">
+                    Customer ID
+                    <Link to="/">
+                      <span class="icon-Table-Sorting"></span>
+                    </Link>
+                  </th>
+                  <th scope="col">
+                    DOB
+                    <Link to="/">
+                      <span class="icon-Table-Sorting"></span>
+                    </Link>
+                  </th>
+                  <th scope="col">
+                    Gender
                     <Link to="/">
                       <span class="icon-Table-Sorting"></span>
                     </Link>
@@ -434,214 +522,314 @@ const ActiveCardsWindow = () => {
               </thead>
               <tbody>
                 <tr>
-                  <td>ATM</td>
-                  <td>ACQUIRER</td>
-                  <td>SVCB0001</td>
-                  <td>01/02/2022, 06:35:00 PM</td>
-                  <td
-                    className="fontWeight-500 colorPrimaryDefault cursorPointer"
-                    onClick={() => setReferenceNo(!referenceNo)}
-                  >
-                    203218001138
+                  <td>
+                    <div className="form-check d-flex align-items-center">
+                      <input
+                        className="form-check-input"
+                        type="checkbox"
+                        value=""
+                        id="flexCheckOne"
+                        name="nr1"
+                        onChange={() => toggleCheck("nr1")}
+                        checked={checked["nr1"]}
+                      />
+                    </div>
                   </td>
-                  <td>459115XXXXXX5716</td>
-                  <td>XXXXXXXXXXXXXXX1234</td>
-                  <td>6100.00</td>
-                  <td>No Data Recorded</td>
-                  <td>Successful</td>
-                  <td>Successful</td>
-                  <td>No Data Recorded</td>
-                  <td>Withdrawal</td>
-                  <td>Check with JP/came</td>
+                  <td>Pune</td>
+                  <td>Saving</td>
+                  <td>SBN0987654356788124</td>
+                  <td>Rakesh</td>
+                  <td>8987865337338</td>
+                  <td>2025</td>
+                  <td>11-03-2022</td>
+                  <td>11-03-2022</td>
+                  <td>9876545678</td>
+                  <td>Prepaid</td>
+                  <td>RUPAY</td>
+                  <td>876543</td>
+                  <td>Reshma</td>
+                  <td>R00987654</td>
+                  <td>02-03-2022</td>
+                  <td>Male</td>
                 </tr>
                 <tr>
-                  <td>ATM</td>
-                  <td>ACQUIRER</td>
-                  <td>SVCB0001</td>
-                  <td>01/02/2022, 06:35:00 PM</td>
-                  <td
-                    className="fontWeight-500 colorPrimaryDefault cursorPointer"
-                    onClick={() => setReferenceNo(!referenceNo)}
-                  >
-                    203218001138
+                  <td>
+                    <div className="form-check d-flex align-items-center">
+                      <input
+                        className="form-check-input"
+                        type="checkbox"
+                        value=""
+                        id="flexCheckOne"
+                        name="nr2"
+                        onChange={() => toggleCheck("nr2")}
+                        checked={checked["nr2"]}
+                      />
+                    </div>
                   </td>
-                  <td>459115XXXXXX5716</td>
-                  <td>XXXXXXXXXXXXXXX1234</td>
-                  <td>6100.00</td>
-                  <td>No Data Recorded</td>
-                  <td>Successful</td>
-                  <td>Successful</td>
-                  <td>No Data Recorded</td>
-                  <td>Withdrawal</td>
-                  <td>Check with JP/came</td>
+                  <td>Pune</td>
+                  <td>Saving</td>
+                  <td>SBN0987654356788124</td>
+                  <td>Rakesh</td>
+                  <td>8987865337338</td>
+                  <td>2025</td>
+                  <td>11-03-2022</td>
+                  <td>11-03-2022</td>
+                  <td>9876545678</td>
+                  <td>Prepaid</td>
+                  <td>RUPAY</td>
+                  <td>876543</td>
+                  <td>Reshma</td>
+                  <td>R00987654</td>
+                  <td>02-03-2022</td>
+                  <td>Male</td>
                 </tr>
                 <tr>
-                  <td>ATM</td>
-                  <td>ACQUIRER</td>
-                  <td>SVCB0001</td>
-                  <td>01/02/2022, 06:35:00 PM</td>
-                  <td
-                    className="fontWeight-500 colorPrimaryDefault cursorPointer"
-                    onClick={() => setReferenceNo(!referenceNo)}
-                  >
-                    203218001138
+                  <td>
+                    <div className="form-check d-flex align-items-center">
+                      <input
+                        className="form-check-input"
+                        type="checkbox"
+                        value=""
+                        id="flexCheckOne"
+                        name="nr3"
+                        onChange={() => toggleCheck("nr3")}
+                        checked={checked["nr3"]}
+                      />
+                    </div>
                   </td>
-                  <td>459115XXXXXX5716</td>
-                  <td>XXXXXXXXXXXXXXX1234</td>
-                  <td>6100.00</td>
-                  <td>No Data Recorded</td>
-                  <td>Successful</td>
-                  <td>Successful</td>
-                  <td>No Data Recorded</td>
-                  <td>Withdrawal</td>
-                  <td>Check with JP/came</td>
+                  <td>Pune</td>
+                  <td>Saving</td>
+                  <td>SBN0987654356788124</td>
+                  <td>Rakesh</td>
+                  <td>8987865337338</td>
+                  <td>2025</td>
+                  <td>11-03-2022</td>
+                  <td>11-03-2022</td>
+                  <td>9876545678</td>
+                  <td>Prepaid</td>
+                  <td>RUPAY</td>
+                  <td>876543</td>
+                  <td>Reshma</td>
+                  <td>R00987654</td>
+                  <td>02-03-2022</td>
+                  <td>Male</td>
                 </tr>
                 <tr>
-                  <td>ATM</td>
-                  <td>ACQUIRER</td>
-                  <td>SVCB0001</td>
-                  <td>01/02/2022, 06:35:00 PM</td>
-                  <td
-                    className="fontWeight-500 colorPrimaryDefault cursorPointer"
-                    onClick={() => setReferenceNo(!referenceNo)}
-                  >
-                    203218001138
+                  <td>
+                    <div className="form-check d-flex align-items-center">
+                      <input
+                        className="form-check-input"
+                        type="checkbox"
+                        value=""
+                        id="flexCheckOne"
+                        name="nr4"
+                        onChange={() => toggleCheck("nr4")}
+                        checked={checked["nr4"]}
+                      />
+                    </div>
                   </td>
-                  <td>459115XXXXXX5716</td>
-                  <td>XXXXXXXXXXXXXXX1234</td>
-                  <td>6100.00</td>
-                  <td>No Data Recorded</td>
-                  <td>Successful</td>
-                  <td>Successful</td>
-                  <td>No Data Recorded</td>
-                  <td>Withdrawal</td>
-                  <td>Check with JP/came</td>
+                  <td>Pune</td>
+                  <td>Saving</td>
+                  <td>SBN0987654356788124</td>
+                  <td>Rakesh</td>
+                  <td>8987865337338</td>
+                  <td>2025</td>
+                  <td>11-03-2022</td>
+                  <td>11-03-2022</td>
+                  <td>9876545678</td>
+                  <td>Prepaid</td>
+                  <td>RUPAY</td>
+                  <td>876543</td>
+                  <td>Reshma</td>
+                  <td>R00987654</td>
+                  <td>02-03-2022</td>
+                  <td>Male</td>
                 </tr>
                 <tr>
-                  <td>ATM</td>
-                  <td>ACQUIRER</td>
-                  <td>SVCB0001</td>
-                  <td>01/02/2022, 06:35:00 PM</td>
-                  <td
-                    className="fontWeight-500 colorPrimaryDefault cursorPointer"
-                    onClick={() => setReferenceNo(!referenceNo)}
-                  >
-                    203218001138
+                  <td>
+                    <div className="form-check d-flex align-items-center">
+                      <input
+                        className="form-check-input"
+                        type="checkbox"
+                        value=""
+                        id="flexCheckOne"
+                        name="nr5"
+                        onChange={() => toggleCheck("nr5")}
+                        checked={checked["nr5"]}
+                      />
+                    </div>
                   </td>
-                  <td>459115XXXXXX5716</td>
-                  <td>XXXXXXXXXXXXXXX1234</td>
-                  <td>6100.00</td>
-                  <td>No Data Recorded</td>
-                  <td>Successful</td>
-                  <td>Successful</td>
-                  <td>No Data Recorded</td>
-                  <td>Withdrawal</td>
-                  <td>Check with JP/came</td>
+                  <td>Pune</td>
+                  <td>Saving</td>
+                  <td>SBN0987654356788124</td>
+                  <td>Rakesh</td>
+                  <td>8987865337338</td>
+                  <td>2025</td>
+                  <td>11-03-2022</td>
+                  <td>11-03-2022</td>
+                  <td>9876545678</td>
+                  <td>Prepaid</td>
+                  <td>RUPAY</td>
+                  <td>876543</td>
+                  <td>Reshma</td>
+                  <td>R00987654</td>
+                  <td>02-03-2022</td>
+                  <td>Male</td>
                 </tr>
                 <tr>
-                  <td>ATM</td>
-                  <td>ACQUIRER</td>
-                  <td>SVCB0001</td>
-                  <td>01/02/2022, 06:35:00 PM</td>
-                  <td
-                    className="fontWeight-500 colorPrimaryDefault cursorPointer"
-                    onClick={() => setReferenceNo(!referenceNo)}
-                  >
-                    203218001138
+                  <td>
+                    <div className="form-check d-flex align-items-center">
+                      <input
+                        className="form-check-input"
+                        type="checkbox"
+                        value=""
+                        id="flexCheckOne"
+                        name="nr6"
+                        onChange={() => toggleCheck("nr6")}
+                        checked={checked["nr6"]}
+                      />
+                    </div>
                   </td>
-                  <td>459115XXXXXX5716</td>
-                  <td>XXXXXXXXXXXXXXX1234</td>
-                  <td>6100.00</td>
-                  <td>No Data Recorded</td>
-                  <td>Successful</td>
-                  <td>Successful</td>
-                  <td>No Data Recorded</td>
-                  <td>Withdrawal</td>
-                  <td>Check with JP/came</td>
+                  <td>Pune</td>
+                  <td>Saving</td>
+                  <td>SBN0987654356788124</td>
+                  <td>Rakesh</td>
+                  <td>8987865337338</td>
+                  <td>2025</td>
+                  <td>11-03-2022</td>
+                  <td>11-03-2022</td>
+                  <td>9876545678</td>
+                  <td>Prepaid</td>
+                  <td>RUPAY</td>
+                  <td>876543</td>
+                  <td>Reshma</td>
+                  <td>R00987654</td>
+                  <td>02-03-2022</td>
+                  <td>Male</td>
                 </tr>
                 <tr>
-                  <td>ATM</td>
-                  <td>ACQUIRER</td>
-                  <td>SVCB0001</td>
-                  <td>01/02/2022, 06:35:00 PM</td>
-                  <td
-                    className="fontWeight-500 colorPrimaryDefault cursorPointer"
-                    onClick={() => setReferenceNo(!referenceNo)}
-                  >
-                    203218001138
+                  <td>
+                    <div className="form-check d-flex align-items-center">
+                      <input
+                        className="form-check-input"
+                        type="checkbox"
+                        value=""
+                        id="flexCheckOne"
+                        name="nr7"
+                        onChange={() => toggleCheck("nr7")}
+                        checked={checked["nr7"]}
+                      />
+                    </div>
                   </td>
-                  <td>459115XXXXXX5716</td>
-                  <td>XXXXXXXXXXXXXXX1234</td>
-                  <td>6100.00</td>
-                  <td>No Data Recorded</td>
-                  <td>Successful</td>
-                  <td>Successful</td>
-                  <td>No Data Recorded</td>
-                  <td>Withdrawal</td>
-                  <td>Check with JP/came</td>
+                  <td>Pune</td>
+                  <td>Saving</td>
+                  <td>SBN0987654356788124</td>
+                  <td>Rakesh</td>
+                  <td>8987865337338</td>
+                  <td>2025</td>
+                  <td>11-03-2022</td>
+                  <td>11-03-2022</td>
+                  <td>9876545678</td>
+                  <td>Prepaid</td>
+                  <td>RUPAY</td>
+                  <td>876543</td>
+                  <td>Reshma</td>
+                  <td>R00987654</td>
+                  <td>02-03-2022</td>
+                  <td>Male</td>
                 </tr>
                 <tr>
-                  <td>ATM</td>
-                  <td>ACQUIRER</td>
-                  <td>SVCB0001</td>
-                  <td>01/02/2022, 06:35:00 PM</td>
-                  <td
-                    className="fontWeight-500 colorPrimaryDefault cursorPointer"
-                    onClick={() => setReferenceNo(!referenceNo)}
-                  >
-                    203218001138
+                  <td>
+                    <div className="form-check d-flex align-items-center">
+                      <input
+                        className="form-check-input"
+                        type="checkbox"
+                        value=""
+                        id="flexCheckOne"
+                        name="nr8"
+                        onChange={() => toggleCheck("nr8")}
+                        checked={checked["nr8"]}
+                      />
+                    </div>
                   </td>
-                  <td>459115XXXXXX5716</td>
-                  <td>XXXXXXXXXXXXXXX1234</td>
-                  <td>6100.00</td>
-                  <td>No Data Recorded</td>
-                  <td>Successful</td>
-                  <td>Successful</td>
-                  <td>No Data Recorded</td>
-                  <td>Withdrawal</td>
-                  <td>Check with JP/came</td>
+                  <td>Pune</td>
+                  <td>Saving</td>
+                  <td>SBN0987654356788124</td>
+                  <td>Rakesh</td>
+                  <td>8987865337338</td>
+                  <td>2025</td>
+                  <td>11-03-2022</td>
+                  <td>11-03-2022</td>
+                  <td>9876545678</td>
+                  <td>Prepaid</td>
+                  <td>RUPAY</td>
+                  <td>876543</td>
+                  <td>Reshma</td>
+                  <td>R00987654</td>
+                  <td>02-03-2022</td>
+                  <td>Male</td>
                 </tr>
                 <tr>
-                  <td>ATM</td>
-                  <td>ACQUIRER</td>
-                  <td>SVCB0001</td>
-                  <td>01/02/2022, 06:35:00 PM</td>
-                  <td
-                    className="fontWeight-500 colorPrimaryDefault cursorPointer"
-                    onClick={() => setReferenceNo(!referenceNo)}
-                  >
-                    203218001138
+                  <td>
+                    <div className="form-check d-flex align-items-center">
+                      <input
+                        className="form-check-input"
+                        type="checkbox"
+                        value=""
+                        id="flexCheckOne"
+                        name="nr9"
+                        onChange={() => toggleCheck("nr9")}
+                        checked={checked["nr9"]}
+                      />
+                    </div>
                   </td>
-                  <td>459115XXXXXX5716</td>
-                  <td>XXXXXXXXXXXXXXX1234</td>
-                  <td>6100.00</td>
-                  <td>No Data Recorded</td>
-                  <td>Successful</td>
-                  <td>Successful</td>
-                  <td>No Data Recorded</td>
-                  <td>Withdrawal</td>
-                  <td>Check with JP/came</td>
+                  <td>Pune</td>
+                  <td>Saving</td>
+                  <td>SBN0987654356788124</td>
+                  <td>Rakesh</td>
+                  <td>8987865337338</td>
+                  <td>2025</td>
+                  <td>11-03-2022</td>
+                  <td>11-03-2022</td>
+                  <td>9876545678</td>
+                  <td>Prepaid</td>
+                  <td>RUPAY</td>
+                  <td>876543</td>
+                  <td>Reshma</td>
+                  <td>R00987654</td>
+                  <td>02-03-2022</td>
+                  <td>Male</td>
                 </tr>
                 <tr>
-                  <td>ATM</td>
-                  <td>ACQUIRER</td>
-                  <td>SVCB0001</td>
-                  <td>01/02/2022, 06:35:00 PM</td>
-                  <td
-                    className="fontWeight-500 colorPrimaryDefault cursorPointer"
-                    onClick={() => setReferenceNo(!referenceNo)}
-                  >
-                    203218001138
+                  <td>
+                    <div className="form-check d-flex align-items-center">
+                      <input
+                        className="form-check-input"
+                        type="checkbox"
+                        value=""
+                        id="flexCheckOne"
+                        name="nr10"
+                        onChange={() => toggleCheck("nr10")}
+                        checked={checked["nr10"]}
+                      />
+                    </div>
                   </td>
-                  <td>459115XXXXXX5716</td>
-                  <td>XXXXXXXXXXXXXXX1234</td>
-                  <td>6100.00</td>
-                  <td>No Data Recorded</td>
-                  <td>Successful</td>
-                  <td>Successful</td>
-                  <td>No Data Recorded</td>
-                  <td>Withdrawal</td>
-                  <td>Check with JP/came</td>
+                  <td>Pune</td>
+                  <td>Saving</td>
+                  <td>SBN0987654356788124</td>
+                  <td>Rakesh</td>
+                  <td>8987865337338</td>
+                  <td>2025</td>
+                  <td>11-03-2022</td>
+                  <td>11-03-2022</td>
+                  <td>9876545678</td>
+                  <td>Prepaid</td>
+                  <td>RUPAY</td>
+                  <td>876543</td>
+                  <td>Reshma</td>
+                  <td>R00987654</td>
+                  <td>02-03-2022</td>
+                  <td>Male</td>
                 </tr>
               </tbody>
             </table>

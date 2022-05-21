@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?aut7tx');
-  src:  url('fonts/icomoon.eot?aut7tx#iefix') format('embedded-opentype'),
-    url('fonts/icomoon.ttf?aut7tx') format('truetype'),
-    url('fonts/icomoon.woff?aut7tx') format('woff'),
-    url('fonts/icomoon.svg?aut7tx#icomoon') format('svg');
+  src:  url('fonts/icomoon.eot?xqitpr');
+  src:  url('fonts/icomoon.eot?xqitpr#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?xqitpr') format('truetype'),
+    url('fonts/icomoon.woff?xqitpr') format('woff'),
+    url('fonts/icomoon.svg?xqitpr#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -25,6 +25,14 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-Search:before {
+  content: "\e90e";
+  color: var(--color-primary-default);
+}
+.icon-Table-Sorting:before {
+  content: "\e90d";
+  color: #868686;
+}
 .icon-Hamburger-Menu:before {
   content: "\e90c";
     color: var(--color-black);

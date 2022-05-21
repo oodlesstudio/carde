@@ -458,6 +458,9 @@
     display: block;
     min-height: 100vh;
   }
+    .sidebarOpened {
+      width: 100% !important;
+    }
 }
 @media (min-width: 768px) {
   .sideBar {

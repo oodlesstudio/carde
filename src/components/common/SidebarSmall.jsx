@@ -41,7 +41,7 @@ const operationCardPopover = (
           </Link>
         </li>
         <li>
-          <Link to="/">
+          <Link to="active-card">
             <span className="subMenuLeft">
               <span className="icon-vertical-line"></span>
             </span>
@@ -233,7 +233,7 @@ const SidebarSmall = (props) => {
 
       {/* Manual Insert  */}
       <div className="sidebarSmallImg">
-        <Link to="/" className={activeLink("/manual-insert")}>
+        <Link to="/manual-insert" className={activeLink("/manual-insert")}>
           <span className="sidebarIconSize icon-Manual-Insert">
             {/* icon-Manual-Insert  Small Icon */}
           </span>
@@ -248,9 +248,11 @@ const SidebarSmall = (props) => {
           overlay={operationCardPopover}
           rootClose
         >
-          <span className="sidebarIconSize icon-Operartion-Card">
-            {/* icon-Operartion-Card Icon */}
-          </span>
+          <Link to="/" className={activeLink("/active-card")}>
+            <span className="sidebarIconSize icon-Operartion-Card">
+              {/* icon-Operartion-Card Icon */}
+            </span>
+          </Link>
         </OverlayTrigger>
       </div>
 
