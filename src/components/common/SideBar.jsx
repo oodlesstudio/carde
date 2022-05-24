@@ -1,15 +1,17 @@
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, matchPath } from "react-router-dom";
+// Components
+
+// path match
 
 const SideBar = (props) => {
   let path = useLocation().pathname;
 
-  if (
-    path === "/remitter-registration" ||
-    path === "/beneficiary-registration" ||
-    path === "/fund-transfer"
-  ) {
-    path = "/transfer-money";
+  // Card Operation Path
+  let cardOperationPath = matchPath("/card-operation/*", path);
+  if (cardOperationPath) {
+    cardOperationPath = cardOperationPath.pathnameBase;
+    console.log(cardOperationPath);
   }
 
   const activeLink = (arr) => {
@@ -23,6 +25,9 @@ const SideBar = (props) => {
   const activeBtnClass = (arr) => {
     if (arr === path) {
       return "accordion-button";
+    }
+    if (arr === cardOperationPath) {
+      return "accordion-button";
     } else {
       return "accordion-button collapsed";
     }
@@ -30,12 +35,18 @@ const SideBar = (props) => {
   const activeAriaExpand = (arr = []) => {
     if (arr === path) {
       return "true";
+    }
+    if (arr === cardOperationPath) {
+      return "true";
     } else {
       return "false";
     }
   };
   const activeAccordionBodyClass = (arr) => {
     if (arr === path) {
+      return "accordion-collapse collapse show";
+    }
+    if (arr === cardOperationPath) {
       return "accordion-collapse collapse show";
     } else {
       return "accordion-collapse collapse ";
@@ -83,11 +94,11 @@ const SideBar = (props) => {
         <div className="accordion-item">
           <h2 className="accordion-header" id="headingTwo">
             <button
-              className={activeBtnClass("/active-card")}
+              className={activeBtnClass("/card-operation")}
               type="button"
               data-bs-toggle="collapse"
               data-bs-target="#collapseTwo"
-              aria-expanded={activeAriaExpand("/active-card")}
+              aria-expanded={activeAriaExpand("/card-operation")}
               aria-controls="collapseTwo"
             >
               <span className=" sidebarIconSize icon-Operartion-Card">
@@ -98,7 +109,7 @@ const SideBar = (props) => {
           </h2>
           <div
             id="collapseTwo"
-            className={activeAccordionBodyClass("/active-card")}
+            className={activeAccordionBodyClass("/card-operation")}
             aria-labelledby="headingTwo"
             data-bs-parent="#accordionExample"
           >
@@ -138,8 +149,8 @@ const SideBar = (props) => {
                 </li>
                 <li>
                   <Link
-                    to="/active-card"
-                    className={activeLink("/active-card")}
+                    to="/card-operation/active-card"
+                    className={activeLink("/card-operation/active-card")}
                   >
                     <span className="subMenuLeft">
                       <span className="icon-vertical-line"></span>

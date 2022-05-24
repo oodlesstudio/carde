@@ -13,7 +13,7 @@ const router = () => {
       <Routes>
         <Route path="/" element={<CmsConfiguration />} />
         <Route path="/manual-insert" element={<ManualInsert />} />
-        <Route path="/active-card" element={<ActiveCards />} />
+        <Route path="/card-operation/active-card" element={<ActiveCards />} />
       </Routes>
     </BrowserRouter>
   );
