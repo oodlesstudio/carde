@@ -1,215 +1,226 @@
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, matchPath } from "react-router-dom";
 import { Popover, OverlayTrigger } from "react-bootstrap";
 
 // const activeLink = (arr) => {};
 
-const operationCardPopover = (
-  <Popover id="popover-basic" className="sidebarPopover">
-    <Popover.Body>
-      <ul className="subMenu">
-        <li>
-          <Link to="/transfer-money">
-            <span className="subMenuLeft">
-              <span className="icon-vertical-line"></span>
-            </span>
-            <span className="subMenuRight">Generate Cards</span>
-          </Link>
-        </li>
-        <li>
-          <Link to="/">
-            <span className="subMenuLeft">
-              <span className="icon-vertical-line"></span>
-            </span>
-            <span className="subMenuRight">Encoding Emboss</span>
-          </Link>
-        </li>
-        <li>
-          <Link to="/">
-            <span className="subMenuLeft">
-              <span className="icon-vertical-line"></span>
-            </span>
-            <span className="subMenuRight">Pin Print</span>
-          </Link>
-        </li>
-        <li>
-          <Link to="/">
-            <span className="subMenuLeft">
-              <span className="icon-vertical-line"></span>
-            </span>
-            <span className="subMenuRight">Activation Process</span>
-          </Link>
-        </li>
-        <li>
-          <Link to="active-card">
-            <span className="subMenuLeft">
-              <span className="icon-vertical-line"></span>
-            </span>
-            <span className="subMenuRight">Active Cards</span>
-          </Link>
-        </li>
-        <li>
-          <Link to="/">
-            <span className="subMenuLeft">
-              <span className="icon-vertical-line"></span>
-            </span>
-            <span className="subMenuRight">De-Active Cards</span>
-          </Link>
-        </li>
-        <li>
-          <Link to="/">
-            <span className="subMenuLeft">
-              <span className="icon-vertical-line"></span>
-            </span>
-            <span className="subMenuRight">Hot Cards</span>
-          </Link>
-        </li>
-        <li>
-          <Link to="/">
-            <span className="subMenuLeft">
-              <span className="icon-vertical-line"></span>
-            </span>
-            <span className="subMenuRight">Credit Card Repin Request</span>
-          </Link>
-        </li>
-        <li>
-          <Link to="/">
-            <span className="subMenuLeft">
-              <span className="icon-vertical-line"></span>
-            </span>
-            <span className="subMenuRight">Change Card Limit</span>
-          </Link>
-        </li>
-      </ul>
-    </Popover.Body>
-  </Popover>
-);
-
-const instaCardPopover = (
-  <Popover id="popover-basic" className="sidebarPopover">
-    <Popover.Body>
-      <ul className="subMenu">
-        <li>
-          <Link to="/">
-            <span className="subMenuLeft">
-              <span className="icon-vertical-line"></span>
-            </span>
-            <span className="subMenuRight">Generate Insta Cards</span>
-          </Link>
-        </li>
-        <li>
-          <Link to="/">
-            <span className="subMenuLeft">
-              <span className="icon-vertical-line"></span>
-            </span>
-            <span className="subMenuRight">Encoding Embossing Insta Cards</span>
-          </Link>
-        </li>
-        <li>
-          <Link to="/">
-            <span className="subMenuLeft">
-              <span className="icon-vertical-line"></span>
-            </span>
-            <span className="subMenuRight">Pin Print </span>
-          </Link>
-        </li>
-        <li>
-          <Link to="/">
-            <span className="subMenuLeft">
-              <span className="icon-vertical-line"></span>
-            </span>
-            <span className="subMenuRight">Account Mapping</span>
-          </Link>
-        </li>
-      </ul>
-    </Popover.Body>
-  </Popover>
-);
-
-const inventoryPopover = (
-  <Popover id="popover-basic" className="sidebarPopover">
-    <Popover.Body>
-      <ul className="subMenu">
-        <li>
-          <Link to="/">
-            <span className="subMenuLeft">
-              <span className="icon-vertical-line"></span>
-            </span>
-            <span className="subMenuRight">Courier-Card Details</span>
-          </Link>
-        </li>
-        <li>
-          <Link to="/">
-            <span className="subMenuLeft">
-              <span className="icon-vertical-line"></span>
-            </span>
-            <span className="subMenuRight">Courier-Card Branch Details</span>
-          </Link>
-        </li>
-        <li>
-          <Link to="/">
-            <span className="subMenuLeft">
-              <span className="icon-vertical-line"></span>
-            </span>
-            <span className="subMenuRight">Courier-Vendor Details</span>
-          </Link>
-        </li>
-        <li>
-          <Link to="/">
-            <span className="subMenuLeft">
-              <span className="icon-vertical-line"></span>
-            </span>
-            <span className="subMenuRight">Reports</span>
-          </Link>
-        </li>
-      </ul>
-    </Popover.Body>
-  </Popover>
-);
-
-const reportPopover = (
-  <Popover id="popover-basic" className="sidebarPopover">
-    <Popover.Body>
-      <ul className="subMenu">
-        <li>
-          <Link to="/">
-            <span className="subMenuLeft">
-              <span className="icon-vertical-line"></span>
-            </span>
-            <span className="subMenuRight">Audit Reports</span>
-          </Link>
-        </li>
-        <li>
-          <Link to="/">
-            <span className="subMenuLeft">
-              <span className="icon-vertical-line"></span>
-            </span>
-            <span className="subMenuRight">CMS Summary Reports</span>
-          </Link>
-        </li>
-        <li>
-          <Link to="/">
-            <span className="subMenuLeft">
-              <span className="icon-vertical-line"></span>
-            </span>
-            <span className="subMenuRight">Monthly Card Report</span>
-          </Link>
-        </li>
-      </ul>
-    </Popover.Body>
-  </Popover>
-);
-
 const SidebarSmall = (props) => {
   const path = useLocation().pathname;
 
+  // Card Operation Path
+  let cardOperationPath = matchPath("/card-operation/*", path);
+  if (cardOperationPath) {
+    cardOperationPath = cardOperationPath.pathnameBase;
+  }
+
   const activeLink = (arr) => {
     if (arr === path) {
+      return "activeTab";
+    }
+    if (arr === cardOperationPath) {
       return "activeTab";
     } else {
       return "";
     }
   };
+
+  const operationCardPopover = (
+    <Popover id="popover-basic" className="sidebarPopover">
+      <Popover.Body>
+        <ul className="subMenu">
+          <li>
+            <Link to="/transfer-money">
+              <span className="subMenuLeft">
+                <span className="icon-vertical-line"></span>
+              </span>
+              <span className="subMenuRight">Generate Cards</span>
+            </Link>
+          </li>
+          <li>
+            <Link to="/">
+              <span className="subMenuLeft">
+                <span className="icon-vertical-line"></span>
+              </span>
+              <span className="subMenuRight">Encoding Emboss</span>
+            </Link>
+          </li>
+          <li>
+            <Link to="/">
+              <span className="subMenuLeft">
+                <span className="icon-vertical-line"></span>
+              </span>
+              <span className="subMenuRight">Pin Print</span>
+            </Link>
+          </li>
+          <li>
+            <Link to="/">
+              <span className="subMenuLeft">
+                <span className="icon-vertical-line"></span>
+              </span>
+              <span className="subMenuRight">Activation Process</span>
+            </Link>
+          </li>
+          <li className={activeLink("/card-operation/active-card")}>
+            <Link to="/card-operation/active-card">
+              <span className="subMenuLeft">
+                <span className="icon-vertical-line"></span>
+              </span>
+              <span className="subMenuRight">Active Cards</span>
+            </Link>
+          </li>
+          <li>
+            <Link to="/">
+              <span className="subMenuLeft">
+                <span className="icon-vertical-line"></span>
+              </span>
+              <span className="subMenuRight">De-Active Cards</span>
+            </Link>
+          </li>
+          <li>
+            <Link to="/">
+              <span className="subMenuLeft">
+                <span className="icon-vertical-line"></span>
+              </span>
+              <span className="subMenuRight">Hot Cards</span>
+            </Link>
+          </li>
+          <li>
+            <Link to="/">
+              <span className="subMenuLeft">
+                <span className="icon-vertical-line"></span>
+              </span>
+              <span className="subMenuRight">Credit Card Repin Request</span>
+            </Link>
+          </li>
+          <li>
+            <Link to="/">
+              <span className="subMenuLeft">
+                <span className="icon-vertical-line"></span>
+              </span>
+              <span className="subMenuRight">Change Card Limit</span>
+            </Link>
+          </li>
+        </ul>
+      </Popover.Body>
+    </Popover>
+  );
+
+  const instaCardPopover = (
+    <Popover id="popover-basic" className="sidebarPopover">
+      <Popover.Body>
+        <ul className="subMenu">
+          <li>
+            <Link to="/">
+              <span className="subMenuLeft">
+                <span className="icon-vertical-line"></span>
+              </span>
+              <span className="subMenuRight">Generate Insta Cards</span>
+            </Link>
+          </li>
+          <li>
+            <Link to="/">
+              <span className="subMenuLeft">
+                <span className="icon-vertical-line"></span>
+              </span>
+              <span className="subMenuRight">
+                Encoding Embossing Insta Cards
+              </span>
+            </Link>
+          </li>
+          <li>
+            <Link to="/">
+              <span className="subMenuLeft">
+                <span className="icon-vertical-line"></span>
+              </span>
+              <span className="subMenuRight">Pin Print </span>
+            </Link>
+          </li>
+          <li>
+            <Link to="/">
+              <span className="subMenuLeft">
+                <span className="icon-vertical-line"></span>
+              </span>
+              <span className="subMenuRight">Account Mapping</span>
+            </Link>
+          </li>
+        </ul>
+      </Popover.Body>
+    </Popover>
+  );
+
+  const inventoryPopover = (
+    <Popover id="popover-basic" className="sidebarPopover">
+      <Popover.Body>
+        <ul className="subMenu">
+          <li>
+            <Link to="/">
+              <span className="subMenuLeft">
+                <span className="icon-vertical-line"></span>
+              </span>
+              <span className="subMenuRight">Courier-Card Details</span>
+            </Link>
+          </li>
+          <li>
+            <Link to="/">
+              <span className="subMenuLeft">
+                <span className="icon-vertical-line"></span>
+              </span>
+              <span className="subMenuRight">Courier-Card Branch Details</span>
+            </Link>
+          </li>
+          <li>
+            <Link to="/">
+              <span className="subMenuLeft">
+                <span className="icon-vertical-line"></span>
+              </span>
+              <span className="subMenuRight">Courier-Vendor Details</span>
+            </Link>
+          </li>
+          <li>
+            <Link to="/">
+              <span className="subMenuLeft">
+                <span className="icon-vertical-line"></span>
+              </span>
+              <span className="subMenuRight">Reports</span>
+            </Link>
+          </li>
+        </ul>
+      </Popover.Body>
+    </Popover>
+  );
+
+  const reportPopover = (
+    <Popover id="popover-basic" className="sidebarPopover">
+      <Popover.Body>
+        <ul className="subMenu">
+          <li>
+            <Link to="/">
+              <span className="subMenuLeft">
+                <span className="icon-vertical-line"></span>
+              </span>
+              <span className="subMenuRight">Audit Reports</span>
+            </Link>
+          </li>
+          <li>
+            <Link to="/">
+              <span className="subMenuLeft">
+                <span className="icon-vertical-line"></span>
+              </span>
+              <span className="subMenuRight">CMS Summary Reports</span>
+            </Link>
+          </li>
+          <li>
+            <Link to="/">
+              <span className="subMenuLeft">
+                <span className="icon-vertical-line"></span>
+              </span>
+              <span className="subMenuRight">Monthly Card Report</span>
+            </Link>
+          </li>
+        </ul>
+      </Popover.Body>
+    </Popover>
+  );
 
   return (
     <div className="sidebarSmall">
@@ -248,11 +259,11 @@ const SidebarSmall = (props) => {
           overlay={operationCardPopover}
           rootClose
         >
-          <Link to="/" className={activeLink("/active-card")}>
+          <div className={activeLink("/card-operation")}>
             <span className="sidebarIconSize icon-Operartion-Card">
               {/* icon-Operartion-Card Icon */}
             </span>
-          </Link>
+          </div>
         </OverlayTrigger>
       </div>
 

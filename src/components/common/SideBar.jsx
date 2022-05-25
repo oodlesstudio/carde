@@ -11,7 +11,6 @@ const SideBar = (props) => {
   let cardOperationPath = matchPath("/card-operation/*", path);
   if (cardOperationPath) {
     cardOperationPath = cardOperationPath.pathnameBase;
-    console.log(cardOperationPath);
   }
 
   const activeLink = (arr) => {
