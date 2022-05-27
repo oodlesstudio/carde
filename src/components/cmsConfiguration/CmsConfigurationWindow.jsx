@@ -76,7 +76,7 @@ const CmsConfigurationWindow = () => {
           <span>
             <svg
               width="8"
-              height="auto"
+              height="100%"
               viewBox="0 0 10 16"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -1032,7 +1032,7 @@ const CmsConfigurationWindow = () => {
           show={resetFilters}
           onHide={() => setResetFilters(!resetFilters)}
           centered
-          className="defaultThemeModal saveFiltersModal errorFiltersModal centeredModal"
+          className="defaultThemeModal saveFiltersModal mobile-defaultThemeModal errorFiltersModal centeredModal"
         >
           <Modal.Header closeButton>
             <Modal.Title className="fontSize16-sm letterSpacing-2">
@@ -1070,7 +1070,7 @@ const CmsConfigurationWindow = () => {
           show={saveFilters}
           onHide={() => setSaveFilters(!saveFilters)}
           centered
-          className="defaultThemeModal saveFiltersModal centeredModal"
+          className="defaultThemeModal mobile-defaultThemeModal saveFiltersModal centeredModal"
         >
           <Modal.Header closeButton>
             <Modal.Title className="fontSize16-sm letterSpacing-2">
