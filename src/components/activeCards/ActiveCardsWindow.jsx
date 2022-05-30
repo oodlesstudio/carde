@@ -177,7 +177,7 @@ const ActiveCardsWindow = () => {
 
       {/* Config Left Top */}
 
-      <div className="configLeftTop">
+      <div className="configLeftTop configLeftTop2">
         <div className="accordion" id="unmatchedFilters">
           <div className="accordion-item">
             <div
