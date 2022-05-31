@@ -6,11 +6,13 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import CmsConfiguration from "../pages/CmsConfiguration";
 import ManualInsert from "../pages/ManualInsert";
 import ActiveCards from "../pages/ActiveCards";
+import WelcomeScreen from "../pages/WelcomeScreen";
 
 const router = () => {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/welcome" element={<WelcomeScreen />} />
         <Route path="/" element={<CmsConfiguration />} />
         <Route path="/manual-insert" element={<ManualInsert />} />
         <Route path="/card-operation/active-card" element={<ActiveCards />} />
