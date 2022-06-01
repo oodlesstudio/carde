@@ -12,8 +12,8 @@ const router = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/welcome" element={<WelcomeScreen />} />
-        <Route path="/" element={<CmsConfiguration />} />
+        <Route path="/" element={<WelcomeScreen />} />
+        <Route path="/cms-configuration" element={<CmsConfiguration />} />
         <Route path="/manual-insert" element={<ManualInsert />} />
         <Route path="/card-operation/active-card" element={<ActiveCards />} />
       </Routes>

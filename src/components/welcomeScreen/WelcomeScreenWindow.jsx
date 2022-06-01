@@ -6,8 +6,16 @@ import WelcomeImage from "../../images/common/WelcomeScreen.svg";
 import WelcomeText from "../../images/common/WelcomeText.svg";
 import CardeLogo from "../../images/common/logo.svg";
 import captcha from "../../images/common/captcha.svg";
+import { useNavigate } from "react-router-dom";
 
 const WelcomeScreenWindow = () => {
+  let navigate = useNavigate();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    navigate("/cms-configuration");
+  };
   return (
     <div className="login-WelcomeScreen">
       {/* Login Svg Screen */}
@@ -21,13 +29,14 @@ const WelcomeScreenWindow = () => {
         {/* form */}
         <img src={CardeLogo} className="CardeLogo1" alt="" />
         <p className="formHeading">Card Management Solution</p>
-        <Form className="login-fields">
+        <Form className="login-fields" onSubmit={handleSubmit}>
           <Form.Group className="loginFieldBox">
             <span className="icon-user"></span>
             <Form.Control
               className="userNameInput loginInput"
-              type="email"
+              type="text"
               placeholder="Username"
+              required
             />
           </Form.Group>
           <Form.Group className="loginFieldBox">
@@ -36,6 +45,7 @@ const WelcomeScreenWindow = () => {
               className="PasswordInput loginInput"
               type="password"
               placeholder="Password"
+              required
             />
           </Form.Group>
           <p className="forgetPasswordText">Forgot Password ?</p>
@@ -56,7 +66,9 @@ const WelcomeScreenWindow = () => {
               placeholder="Enter captcha here"
             />
           </Form.Group>
-          <button className="loginBtn">Login</button>
+          <button className="loginBtn" type="submit">
+            Login
+          </button>
         </Form>
         <div className="copyRight">
           © Maximus Infoware (India) Private Limited 2022

@@ -108,6 +108,7 @@
 .captchaBox {
     display: flex;
     margin-top: 18px;
+    gap: 12px;
 }
 
 .captchaImageBox {
@@ -142,6 +143,9 @@
     font-size: var(--font-size12);
     line-height: 12px;
     color: var(--color-primary-default);
+    cursor: pointer;
+    margin-top: 5px;
+    white-space: nowrap;
 }
 
 
@@ -159,7 +163,6 @@
     margin-top: 24px;
     border-radius: 4px;
     font-weight: var(--font-weight-600);
-    box-shadow: -5px 4px 24px rgba(24, 24, 24, 0.25);
 }
 
 
@@ -193,15 +196,81 @@
         padding-left: 24px;
     }
 
-        .CardeLogo1 {
-            width: 32vw;
-            margin-top: 70px;
-        }
-                .formHeading {
-                    color: var(--color-primary-default);
-                    font-size: var(--font-size24);
-                    line-height: 22px;
-                    font-weight: var(--font-weight-600);
-                    margin-top: 14px;
-                }
+    .CardeLogo1 {
+        width: 32vw;
+        margin-top: 70px;
+    }
+
+    .formHeading {
+        color: var(--color-primary-default);
+        /* font-size: var(--font-size24); */
+        font-size: 3.125vw;
+        line-height: 22px;
+        font-weight: var(--font-weight-600);
+        margin-top: 14px;
+    }
+}
+
+@media(max-width:500px) {
+    .welcomeImage {
+        display: none;
+    }
+
+    .refreshCodeBtn {
+        font-style: normal;
+        font-weight: 500;
+        font-size: var(--font-size10);
+        line-height: 12px;
+        color: var(--color-primary-default);
+    }
+
+
+}
+
+
+@media(max-width:425px) {
+
+    .CardeLogo1 {
+        width: 150px;
+        margin-top: 64px;
+    }
+
+
+    .formHeading {
+        color: var(--color-primary-default);
+        font-size: var(--font-size20);
+        line-height: 22px;
+        font-weight: var(--font-weight-600);
+        margin-top: 9px;
+    }
+
+    .login-fields {
+        margin-top: 30px;
+    }
+
+    .loginInput {
+        width: 88vw;
+
+    }
+
+    .PasswordInput {
+        margin-top: 12px;
+    }
+
+    .forgetPasswordText {
+        margin-top: 12px;
+    }
+
+    .captchaBox {
+        display: flex;
+        margin-top: 16px;
+        gap: 15px;
+    }
+
+    .captchaInput {
+        margin-top: 12px;
+    }
+
+
+
 }

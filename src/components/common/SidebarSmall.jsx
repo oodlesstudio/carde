@@ -235,7 +235,10 @@ const SidebarSmall = (props) => {
 
       {/* Configuration  */}
       <div className="sidebarSmallImg">
-        <Link to="/" className={activeLink("/")}>
+        <Link
+          to="/cms-configuration"
+          className={activeLink("/cms-configuration")}
+        >
           <span className="sidebarIconSize icon-Configuration">
             {/* icon-Configuration  Small Icon */}
           </span>

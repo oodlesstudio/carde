@@ -52,6 +52,8 @@
 
 .icon-Hamburger-Menu:before {
   content: "\e902";
+    color: var(--color-black);
+      font-size: 24px;
 }
 
 .icon-Insta-Card:before {

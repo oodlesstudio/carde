@@ -68,7 +68,10 @@ const SideBar = (props) => {
         {/* Configuration */}
         <div className="accordion-item">
           <h2 className="accordion-header hideArrowIcon" id="headingHome">
-            <Link to="/" className={activeLink("/")}>
+            <Link
+              to="/cms-configuration"
+              className={activeLink("/cms-configuration")}
+            >
               <button className="accordion-button collapsed" type="button">
                 <span className="sidebarIconSize icon-Configuration"></span>
                 <span className="fontSize14 ms-2">Configuration</span>
