@@ -2,12 +2,12 @@ import React from "react";
 // CSS
 import "../components/common/common.css";
 import "../components/common/main.css";
-import "../components/welcomeScreen/welcomeScreen.css";
+import "../components/welcomeScreenDemo/welcomeScreen.css";
 
 // Components
-import WelcomeScreenWindow from "../components/welcomeScreen/WelcomeScreenWindow.jsx";
+import WelcomeScreenWindow from "../components/welcomeScreenDemo/WelcomeScreenWindow.jsx";
 
-const WelcomeScreen = () => {
+const WelcomeScreenDemo = () => {
   return (
     <div className="w-100 h-100">
       <WelcomeScreenWindow />
@@ -15,4 +15,4 @@ const WelcomeScreen = () => {
   );
 };
 
-export default WelcomeScreen;
+export default WelcomeScreenDemo;

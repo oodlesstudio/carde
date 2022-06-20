@@ -17,12 +17,12 @@ const WelcomeScreenWindow = () => {
     navigate("/cms-configuration");
   };
   return (
-    <div className="login-WelcomeScreen">
+    <div className="login-WelcomeScreenDemo">
       {/* Login Svg Screen */}
-      <div className="welcomeImage">
+      <div className="welcomeImageDemo">
         <img src={CardeLogo} className="CardeLogo" alt="" />
         <img src={WelcomeText} className="WelcomeText" alt="" />
-        <img src={WelcomeImage} className="WelcomeImagePhoto" alt="" />
+        <img src={WelcomeImage} className="WelcomeImagePhoto1" alt="" />
       </div>
       {/* Login Form Screen */}
       <div className="login-form">
